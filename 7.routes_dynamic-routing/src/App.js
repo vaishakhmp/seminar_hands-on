@@ -1,60 +1,49 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  useParams,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Link, Routes } from 'react-router-dom';
 
-// Sample data for different pages
-const pages = [
-  { id: 1, title: 'Home', content: 'Welcome to the home page!' },
-  { id: 2, title: 'About', content: 'Learn more about us on the about page.' },
-  { id: 3, title: 'Contact', content: 'Contact us on the contact page.' },
-];
+// Home component
+const Home = () => (
+  <div>
+    <h2>Home Page</h2>
+    <p>Welcome to the home page.</p>
+  </div>
+);
 
-// Sample components for different pages
-function Page() {
-  const { id } = useParams();
-  const page = pages.find((p) => p.id === parseInt(id));
+// Contact component
+const Contact = () => (
+  <div>
+    <h2>Contact Page</h2>
+    <p>You can contact us here.</p>
+  </div>
+);
 
-  if (!page) {
-    return <h2>Page not found</h2>;
-  }
-
-  return (
+// App component
+const App = () => (
+  <BrowserRouter>
     <div>
-      <h2>{page.title}</h2>
-      <p>{page.content}</p>
-    </div>
-  );
-}
-
-function Navigation() {
-  return (
-    <nav>
-      <ul>
-        {pages.map((page) => (
-          <li key={page.id}>
-            <Link to={`/page/${page.id}`}>{page.title}</Link>
+      <nav>
+        <ul>
+          <li>
+            <Link to="/">Home</Link>
           </li>
-        ))}
-      </ul>
-    </nav>
-  );
-}
+          <li>
+            <Link to="/contact">Contact</Link>
+          </li>
+        </ul>
+      </nav>
 
-function App() {
-  return (
-    <Router>
-      <div>
-        <h1>Simple Website</h1>
-        <Navigation />
-        <hr />
-        <Route path="/page/:id" component={Page} />
-      </div>
-    </Router>
-  );
-}
+      <hr />
+
+      {/* Define routes */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
+    </div>
+  </BrowserRouter>
+);
 
 export default App;
+
+
+
