@@ -1,39 +1,38 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class Counter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 0,
-    };
-  }
-
-  increment = () => {
-    this.setState({ count: this.state.count + 1 });
-  };
-
-  decrement = () => {
-    this.setState({ count: this.state.count - 1 });
-  };
-
-  render() {
-    return (
-      <div>
-        <h1>Counter: {this.state.count}</h1>
-        <button onClick={this.increment}>Increment</button>
-        <button onClick={this.decrement}>Decrement</button>
-      </div>
-    );
-  }
-}
-
-function App() {
+// Child component
+const ChildComponent = ({ message }) => {
   return (
-    <div className="App">
-      <Counter />
+    <div>
+      <h2>Child Component</h2>
+      <p>Message from Parent: {message}</p>
     </div>
   );
-}
+};
+
+// Parent component
+const ParentComponent = () => {
+  // Define a message in the parent component's state
+  const [message, setMessage] = useState("Hello from Parent!");
+
+  return (
+    <div>
+      <h1>Parent Component</h1>
+      <ChildComponent message={message} /> {/* Pass the message as a prop */}
+    </div>
+  );
+};
+
+// App component
+const App = () => {
+  return (
+    <div>
+      <h1>App</h1>
+      <ParentComponent />
+    </div>
+  );
+};
 
 export default App;
+
 
